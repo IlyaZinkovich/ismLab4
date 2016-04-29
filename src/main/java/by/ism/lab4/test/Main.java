@@ -1,5 +1,10 @@
 package by.ism.lab4.test;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.apache.commons.math3.distribution.UniformRealDistribution;
 
 import java.io.File;
@@ -13,7 +18,17 @@ import java.util.stream.Collectors;
 
 import static java.lang.Math.*;
 
-public class Main {
+public class Main extends Application {
+
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("plot.fxml"));
+        primaryStage.setTitle("Plots");
+        primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.show();
+    }
+
     static int num_steps = 100000;
     static List<List<Double>> A = new ArrayList<>();
     static List<Double> b = new ArrayList<>();
@@ -80,11 +95,12 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-//            firstIntegral();
-//            secondIntegral();
-//            read("Zinkovich.txt");
-//            slau();
+            firstIntegral();
+            secondIntegral();
+            read("Zinkovich.txt");
+            slau();
             task3();
+            launch(args);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -107,7 +123,7 @@ public class Main {
     }
 
     static double[] slau() throws FileNotFoundException {
-        PrintWriter writer = new PrintWriter(new File("slau"));
+        PrintWriter writer = new PrintWriter(new File("slau.txt"));
         int n = b.size();
         int N = 1000;
         int m = 10000;
